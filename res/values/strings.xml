@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- labels -->
+	<string name="hello">Hello World, EintragHinzufuegen!</string>
+	<string name="lblCategory">Category</string>
+	<string name="lblAmount">Amount (€,Gross)</string>
+	<string name="lblInOut">Direction</string>
+	<string name="lblIntro">Enter your expense here by choosing the category,
+		typing in the amount and choosing the Direction.</string>
+
+	<!-- Button texts -->
+	<string name="btnSubmit">OK</string>
+
+	<!-- Radiobutton texts -->
+	<string name="radioIn">Incoming</string>
+	<string name="radioOut">Outgoing</string>
+
+	<!-- editText texts -->
+	<string name="editAmountDefault">0.00</string>
+
+	<!-- About -->
+	<string name="txtAboutNameLabel">The Maker:</string>
+	<string name="txtAboutNameValue">Sönke D.</string>
+	<string name="txtAboutEmailLabel">The Email:</string>
+	<string name="txtAboutEmailValue">Soenke@soenke-domroese.de</string>
+	<string name="txtAboutWebLabel">The Website</string>
+	<string name="txtAboutWebValue">android.soenke-domroese.de</string>
+
+	<!-- Menu texts texts -->
+	<string name="mnuExit">Close</string>
+	<string name="mnuExitShort">X</string>
+	<string name="mnuEintragen">Submit Entry</string>
+	<string name="mnuEintragenShort">OK</string>
+	<string name="mnuInfo">About the App</string>
+	<string name="mnuInfoShort">Info</string>
+	<string name="mnuShowAll">Show all</string>
+	<string name="mnuShowAllShort">Show</string>	
+
+
+	<!-- else -->
+	<string name="msgSuccess">Entry submitted</string>
+
+	<string name="msgError">Entry not submitted</string>
+	<string name="empty"></string>
+	<string name="app_name">Haushaltsbuch</string>
+</resources>

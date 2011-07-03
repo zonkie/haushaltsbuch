@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical" android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+		<TextView android:text="@string/empty" android:id="@+id/status"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:text="@string/lblIntro" />
+		<CheckedTextView android:text="@string/lblCategory"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:id="@+id/label_amount"></CheckedTextView>
+		<Spinner android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:id="@+id/spinnerCategories"
+			android:entries="@array/categories_names" android:entryValues="@array/categories_values"></Spinner>
+		<CheckedTextView android:id="@+id/label_categoy" android:text="@string/lblInOut" android:layout_height="wrap_content" android:layout_width="wrap_content"></CheckedTextView>
+		<Spinner android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/spinnerDirection" android:entries="@array/directionNames"></Spinner>
+		<CheckedTextView android:text="@string/lblAmount"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:id="@+id/label_in_out"></CheckedTextView>
+		<EditText android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="@string/editAmountDefault"
+			android:id="@+id/editTextAmount" android:inputType="number|numberSigned|numberDecimal"></EditText>
+		<Button android:text="@string/btnSubmit" android:id="@+id/buttonSubmit"
+			android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="onClickEintragen"></Button>
+	</LinearLayout>
+</ScrollView>

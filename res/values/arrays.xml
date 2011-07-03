@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<!-- Einkaufs Kategorien -->
+	<array name="categories_names">
+		<item>Food/Necessary</item>
+		<item>Food/Unnecessary</item>
+		<item>Household</item>
+		<item>Car</item>
+		<item>Necessities</item>
+		<item>Tech</item>
+		<item>Others...</item>
+	</array>
+	<array name="categories_values">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+	</array>
+
+	<!-- Geld Richtungen -->
+	<array name="directionNames">
+		<item>Incoming</item>
+		<item>Outgoing</item>
+	</array>
+	<array name="directionValues">
+		<item>1</item>
+		<item>2</item>
+	</array>	
+</resources>
