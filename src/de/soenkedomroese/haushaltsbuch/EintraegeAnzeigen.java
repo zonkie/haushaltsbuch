@@ -5,12 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -19,12 +15,17 @@ public class EintraegeAnzeigen extends Activity {
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		setContentView(R.layout.eintraegeanzeigen);
+		
+		setContentView(R.layout.eintraegeanzeigen);		
+		
+		TextView status = (TextView) findViewById(R.id.status);
+		
 		try {
 
 			HaushaltsbuchDatabase db = new HaushaltsbuchDatabase(getBaseContext());
+			//status.setText("Database getbaseContext");
 			SQLiteDatabase dbconn = db.getReadableDatabase();
-
+			//status.setText("db.getReadabledataBase");
 			Cursor eintraege = dbconn.query(
 					"haushaltsbuch",
 					new String[] {"_id", "category", "direction", "itemname", "value" },
@@ -34,9 +35,14 @@ public class EintraegeAnzeigen extends Activity {
 					"",
 					"date"
 				);
+			//status.setText("dbconn.Query");
 			startManagingCursor(eintraege);
+			//status.setText("StartManagingCursor");
 			int i=0;
 			while (eintraege.moveToNext()) {
+				
+				//status.setText("MoveNext");
+				
 				TextView category;
 				TextView direction;
 				TextView value;
@@ -80,8 +86,8 @@ public class EintraegeAnzeigen extends Activity {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			TextView errorField = (TextView) findViewById(R.id.textView1);
-			errorField.setText(e.getMessage());
+			
+			//status.setText(e.getMessage());
 			
 		}
 	}
