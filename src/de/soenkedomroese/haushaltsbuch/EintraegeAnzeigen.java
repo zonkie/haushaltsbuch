@@ -16,9 +16,7 @@ public class EintraegeAnzeigen extends Activity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 		
-		setContentView(R.layout.eintraegeanzeigen);		
-		
-		TextView status = (TextView) findViewById(R.id.status);
+		setContentView(R.layout.eintraegeanzeigen);
 		
 		try {
 
@@ -84,10 +82,12 @@ public class EintraegeAnzeigen extends Activity {
 					
 				}
 			}
+			TextView status = (TextView) findViewById(R.id.status);
+			status.setText(R.string.msgSuccess);
 		} catch (Exception e) {
 			// TODO: handle exception
-			
-			//status.setText(e.getMessage());
+			TextView status = (TextView) findViewById(R.id.status);			
+			status.setText(R.string.msgError);
 			
 		}
 	}
