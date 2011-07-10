@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -79,6 +80,9 @@ public class EintraegeAnzeigen extends Activity {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			TextView errorField = (TextView) findViewById(R.id.textView1);
+			errorField.setText(e.getMessage());
+			
 		}
 	}
 
