@@ -32,7 +32,7 @@ public class EintragHinzufuegen extends Activity {
 	}
 
 	public void onClickEintragen(final View view) {
-		try {
+		//try {
 			final Spinner chooseCategory = (Spinner) findViewById(R.id.spinnerCategories);
 			final int pos = chooseCategory.getSelectedItemPosition();
 			final int[] categories = getResources().getIntArray(
@@ -56,10 +56,10 @@ public class EintragHinzufuegen extends Activity {
 			intent.putExtra(DIRECTION, String.valueOf(directionInt));
 
 			startActivity(intent);
-		} catch (Exception e) {
+		//} catch (Exception e) {
 			// TODO: handle exception
 
-		}
+		//}
 	}
 
 	@Override

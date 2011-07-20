@@ -18,8 +18,8 @@ public class EintraegeAnzeigen extends Activity {
 		
 		setContentView(R.layout.eintraegeanzeigen);
 		
-		try {
-
+		//try {
+		
 			HaushaltsbuchDatabase db = new HaushaltsbuchDatabase(getBaseContext());
 			//status.setText("Database getbaseContext");
 			SQLiteDatabase dbconn = db.getReadableDatabase();
@@ -33,13 +33,13 @@ public class EintraegeAnzeigen extends Activity {
 					"",
 					"date"
 				);
-			//status.setText("dbconn.Query");
+			
 			startManagingCursor(eintraege);
-			//status.setText("StartManagingCursor");
+			dbconn.close();
+			
 			int i=0;
+			/*
 			while (eintraege.moveToNext()) {
-				
-				//status.setText("MoveNext");
 				
 				TextView category;
 				TextView direction;
@@ -84,12 +84,13 @@ public class EintraegeAnzeigen extends Activity {
 			}
 			TextView status = (TextView) findViewById(R.id.status);
 			status.setText(R.string.msgSuccess);
-		} catch (Exception e) {
+		//} catch (Exception e) {
 			// TODO: handle exception
-			TextView status = (TextView) findViewById(R.id.status);			
-			status.setText(R.string.msgError);
+			//TextView status = (TextView) findViewById(R.id.status);			
+			//status.setText(R.string.msgError);
 			
-		}
+		//}
+			*/
 	}
 
 	@Override

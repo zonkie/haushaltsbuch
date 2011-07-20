@@ -40,6 +40,9 @@ public class resultActivity extends Activity {
 			stmtInsert.bindString(4, extras.getString(EintragHinzufuegen.AMOUNT));// value
 			stmtInsert.bindString(5, "");//date
 			
+			stmtInsert.execute();
+			stmtInsert.close();
+			
 			final TextView resultCategory = (TextView) findViewById(R.id.txtResultCategory);
 			resultCategory.setText(extras.getString(EintragHinzufuegen.CATEGORY)); // String.valueOf(extras.get(EintragHinzufuegen.CATEGORY).toString()));
 
