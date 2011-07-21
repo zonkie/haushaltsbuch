@@ -1,5 +1,6 @@
 package de.soenkedomroese.haushaltsbuch;
 
+import de.mp.dbtest.db.StaumelderDatenbank;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -35,12 +36,11 @@ public class EintraegeAnzeigen extends Activity {
 				);
 			
 			startManagingCursor(eintraege);
-			dbconn.close();
 			
 			int i=0;
-			/*
-			while (eintraege.moveToNext()) {
-				
+			
+			//while (eintraege.moveToNext()) {
+				/*	
 				TextView category;
 				TextView direction;
 				TextView value;
@@ -81,16 +81,20 @@ public class EintraegeAnzeigen extends Activity {
 										
 					
 				}
-			}
+				*/
+			//}
 			TextView status = (TextView) findViewById(R.id.status);
 			status.setText(R.string.msgSuccess);
+
+			//eintraege.close();
+			dbconn.close();
 		//} catch (Exception e) {
 			// TODO: handle exception
 			//TextView status = (TextView) findViewById(R.id.status);			
 			//status.setText(R.string.msgError);
 			
 		//}
-			*/
+			
 	}
 
 	@Override
