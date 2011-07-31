@@ -23,6 +23,12 @@ public class EintragHinzufuegen extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		
+		//if (!empty(rowId)){
+			//fill Fields with Values to edit the Entry.
+		//}
+		
 	}
 
 	@Override

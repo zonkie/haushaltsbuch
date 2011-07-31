@@ -11,26 +11,24 @@ import android.util.Log;
 public class DBAdapter {
 	int id = 0;
 	public static final String KEY_ROWID = "_id";
-	public static final String KEY_CATEGORY = "category"; 
-	public static final String KEY_DIRECTION = "direction"; 
-	public static final String KEY_ITEMNAME = "itemname"; 
-	public static final String KEY_VALUE = "value"; 
-	public static final String KEY_DATE = "date"; 
-	
+	public static final String KEY_CATEGORY = "category";
+	public static final String KEY_DIRECTION = "direction";
+	public static final String KEY_ITEMNAME = "itemname";
+	public static final String KEY_VALUE = "value";
+	public static final String KEY_DATE = "date";
+
 	private static final String TAG = "DBAdapter";
 
 	private static final String DATABASE_NAME = "haushaltsbuch";
 	private static final String DATABASE_TABLE = "haushaltsbuch";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 
-	private static final String DATABASE_CREATE = "CREATE TABLE "+ DATABASE_TABLE +"(" +
-				KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-				KEY_CATEGORY + " TEXT NOT NULL," +
-				KEY_DIRECTION + " TEXT NOT NULL," +
-				KEY_ITEMNAME + " TEXT NOT NULL," +
-				KEY_VALUE + " TEXT NOT NULL," +
-				KEY_DATE + " TEXT NOT NULL" +
-				")";
+	private static final String DATABASE_CREATE = "CREATE TABLE "
+			+ DATABASE_TABLE + "(" + KEY_ROWID
+			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CATEGORY
+			+ " TEXT NOT NULL," + KEY_DIRECTION + " TEXT NOT NULL,"
+			+ KEY_ITEMNAME + " TEXT NOT NULL," + KEY_VALUE + " TEXT NOT NULL,"
+			+ KEY_DATE + " TEXT NOT NULL" + ")";
 
 	private final Context context;
 
@@ -73,7 +71,8 @@ public class DBAdapter {
 	}
 
 	// ---insert an Entry into the database---
-	public long insertExpense(String Category, String Date, String Direction, String Itemname, String Value) {
+	public long insertExpense(String Category, String Date, String Direction,
+			String Itemname, String Value) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(KEY_CATEGORY, Category);
 		initialValues.put(KEY_DATE, Date);
@@ -82,7 +81,6 @@ public class DBAdapter {
 		initialValues.put(KEY_VALUE, Value);
 		return db.insert(DATABASE_TABLE, null, initialValues);
 	}
-	
 
 	public int getEntryCount() {
 		Cursor cursor = db.rawQuery("SELECT COUNT(_Id) FROM " + DATABASE_TABLE,
@@ -94,23 +92,23 @@ public class DBAdapter {
 
 	}
 
-
-
-	
 	public int getMaxId() {
-		Cursor cursor = db.rawQuery("SELECT MAX("+ KEY_ROWID +") FROM " + DATABASE_TABLE,
-				null);
+		Cursor cursor = db.rawQuery("SELECT MAX(" + KEY_ROWID + ") FROM "
+				+ DATABASE_TABLE, null);
 		if (cursor.moveToFirst()) {
 			return cursor.getInt(0);
 		}
 		return cursor.getInt(0);
 
 	}
+
 	public String getLatestEntry() {
 
 		id = getMaxId();
-		Cursor cursor = db.rawQuery(
-				"SELECT "+ KEY_CATEGORY + "|| '|' || " + KEY_DIRECTION + "|| '|' || " + KEY_ITEMNAME + "|| '|' || " + KEY_VALUE + "|| '|' || " + KEY_DATE + " AS entry FROM "+ DATABASE_TABLE +" WHERE "+ KEY_ROWID + " = " + id, null);
+		Cursor cursor = db.rawQuery("SELECT " + KEY_CATEGORY + "|| '|' || "
+				+ KEY_DIRECTION + "|| '|' || " + KEY_ITEMNAME + "|| '|' || "
+				+ KEY_VALUE + "|| '|' || " + KEY_DATE + " AS entry FROM "
+				+ DATABASE_TABLE + " WHERE " + KEY_ROWID + " = " + id, null);
 		if (cursor.moveToFirst()) {
 			return cursor.getString(0);
 		}
@@ -118,4 +116,33 @@ public class DBAdapter {
 
 	}
 
+	public Cursor getList() {
+		return db.rawQuery("SELECT " + KEY_ROWID + ", " + KEY_ITEMNAME
+				+ "|| '|' || " + KEY_DIRECTION + " AS " + KEY_ITEMNAME
+				+ " FROM "
+				+ DATABASE_TABLE, null);
+	}
+
+	public Cursor fetchOne(long rowId) throws SQLException {
+
+		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {
+				KEY_ROWID, KEY_ITEMNAME }, KEY_ROWID + "=" + rowId, null, null,
+				null, null, null);
+		if (mCursor != null) {
+			mCursor.moveToFirst();
+		}
+		return mCursor;
+	}
+
+	public boolean updateExpense(long rowId, String Category, String Date, String Direction,
+			String Itemname, String Value) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_CATEGORY, Category);
+		args.put(KEY_DATE, Date);
+		args.put(KEY_DIRECTION, Direction);
+		args.put(KEY_ITEMNAME, Itemname);
+		args.put(KEY_VALUE, Value);
+
+		return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+	}
 }
