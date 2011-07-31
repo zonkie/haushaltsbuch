@@ -2,7 +2,11 @@ package de.soenkedomroese.haushaltsbuch;
 
 import java.sql.Date;
 
+import de.soenkedomroese.haushaltsbuch.DBAdapter;
+
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,9 +19,10 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class resultActivity extends Activity {
-
+	DBAdapter db = new DBAdapter(this);
 	@Override
 	public void onCreate(Bundle icicle){
 		
@@ -27,22 +32,37 @@ public class resultActivity extends Activity {
 		final Bundle extras = getIntent().getExtras();
 		
 		if (extras != null){
-			//final ArrayKeyValueMapper mapme = new ArrayKeyValueMapper();
-			//mapme.
-			HaushaltsbuchDatabase hDb = new HaushaltsbuchDatabase(getBaseContext());
-			SQLiteDatabase dbconn = hDb.getReadableDatabase();
 			
-			//"INSERT INTO haushaltsbuch (category,direction,itemname,direction,value,date) values(?,?,?,?,?,?)"
-			SQLiteStatement stmtInsert = dbconn.compileStatement("INSERT INTO haushaltsbuch (category,direction,itemname,value,date) values(?,?,?,?,?)");
-			stmtInsert.bindString(1, extras.getString(EintragHinzufuegen.CATEGORY));// Category
-			stmtInsert.bindString(2, extras.getString(EintragHinzufuegen.DIRECTION));//direction
-			stmtInsert.bindString(3, "");//itemname
-			stmtInsert.bindString(4, extras.getString(EintragHinzufuegen.AMOUNT));// value
-			stmtInsert.bindString(5, "");//date
+			db.open();
+			// do something when the button is clicked
+			try
+			{
+				db.insertExpense(
+						extras.getString(EintragHinzufuegen.CATEGORY),
+						"",
+						extras.getString(EintragHinzufuegen.DIRECTION),
+						extras.getString(EintragHinzufuegen.NAME),
+						extras.getString(EintragHinzufuegen.AMOUNT)
+					);
+		
+				Context context = getApplicationContext();
+				CharSequence text = "The expense was added successfully!";
+				int duration = Toast.LENGTH_SHORT;
+		
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
 			
-			stmtInsert.execute();
-			stmtInsert.close();
+			} catch (Exception e) {
+				Context context = getApplicationContext();
+				CharSequence text = "I'm sorry, there was en Error writing the Entry into the Database!";
+				int duration = Toast.LENGTH_LONG;
+		
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
 			
+			}
+			db.close();
+
 			final TextView resultCategory = (TextView) findViewById(R.id.txtResultCategory);
 			resultCategory.setText(extras.getString(EintragHinzufuegen.CATEGORY)); // String.valueOf(extras.get(EintragHinzufuegen.CATEGORY).toString()));
 

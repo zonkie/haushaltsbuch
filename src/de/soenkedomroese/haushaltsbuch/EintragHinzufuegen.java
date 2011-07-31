@@ -17,7 +17,8 @@ public class EintragHinzufuegen extends Activity {
 	public static final String CATEGORY = "category";
 	public static final String AMOUNT = "amount";
 	public static final String DIRECTION = "direction";
-
+	public static final String NAME = "name";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,7 +33,10 @@ public class EintragHinzufuegen extends Activity {
 	}
 
 	public void onClickEintragen(final View view) {
-		//try {
+		try {
+			
+			final EditText name = (EditText) findViewById(R.id.txtName);
+			
 			final Spinner chooseCategory = (Spinner) findViewById(R.id.spinnerCategories);
 			final int pos = chooseCategory.getSelectedItemPosition();
 			final int[] categories = getResources().getIntArray(
@@ -54,12 +58,13 @@ public class EintragHinzufuegen extends Activity {
 			intent.putExtra(CATEGORY, String.valueOf(categoryInt));
 			intent.putExtra(AMOUNT, String.valueOf(amount.getText()));
 			intent.putExtra(DIRECTION, String.valueOf(directionInt));
+			intent.putExtra(NAME, String.valueOf(name.getText()));
 
 			startActivity(intent);
-		//} catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 
-		//}
+		}
 	}
 
 	@Override

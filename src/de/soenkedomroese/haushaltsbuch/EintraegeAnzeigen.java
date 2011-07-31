@@ -1,106 +1,50 @@
 package de.soenkedomroese.haushaltsbuch;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EintraegeAnzeigen extends Activity {
-
+	DBAdapter db = new DBAdapter(this);
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 		
 		setContentView(R.layout.eintraegeanzeigen);
 		
-		//try {
-		
-			HaushaltsbuchDatabase db = new HaushaltsbuchDatabase(getBaseContext());
-			//status.setText("Database getbaseContext");
-			SQLiteDatabase dbconn = db.getReadableDatabase();
-			//status.setText("db.getReadabledataBase");
-			Cursor eintraege = dbconn.query(
-					"haushaltsbuch",
-					new String[] {"_id", "category", "direction", "itemname", "value" },
-					"",
-					new String[]{},
-					"",
-					"",
-					"date"
-				);
+		db.open();
+		// do something when the button is clicked
+		try
+		{ 
+			String LatestEntry = db.getLatestEntry();
+			TextView latestShow = (TextView) findViewById(R.id.txtShowLatestEntry);
+			latestShow.setText(LatestEntry);
+		} catch (Exception e) {
+			Context context = getApplicationContext();
+			CharSequence text = "I'm sorry, there was en Error reading the latest Entry from the Database! " + e.getMessage();
+			int duration = Toast.LENGTH_LONG;
+	
 			
-			startManagingCursor(eintraege);
-			
-			int i=0;
-			
-			//while (eintraege.moveToNext()) {
-				/*	
-				TextView category;
-				TextView direction;
-				TextView value;
-					
-				//TODO: jeweils eine neue TabellenZeile erstellen
-				if (i==1){
-					//Zeile 1 füllen
-					TableRow zeile = (TableRow) findViewById(R.id.tableRow1);
-					category = (TextView) zeile.findViewById(R.id.textView1);
-					category.setText(eintraege.getString(1));
-					direction = (TextView) zeile.findViewById(R.id.textView2);
-					direction.setText(eintraege.getString(2));
-					value = (TextView) zeile.findViewById(R.id.textView3);
-					value.setText(eintraege.getString(4));
-										
-					
-				}else if (i==2){
-					//Zeile 2 füllen
-					TableRow zeile = (TableRow) findViewById(R.id.tableRow2);
-					category = (TextView) zeile.findViewById(R.id.textView4);
-					category.setText(eintraege.getString(1));
-					direction = (TextView) zeile.findViewById(R.id.textView5);
-					direction.setText(eintraege.getString(2));
-					value = (TextView) zeile.findViewById(R.id.textView6);
-					value.setText(eintraege.getString(4));
-										
-					
-					
-				}else if (i==3){
-					//Zeile 3 füllen
-					TableRow zeile = (TableRow) findViewById(R.id.tableRow3);
-					category = (TextView) zeile.findViewById(R.id.textView7);
-					category.setText(eintraege.getString(1));
-					direction = (TextView) zeile.findViewById(R.id.textView8);
-					direction.setText(eintraege.getString(2));
-					value = (TextView) zeile.findViewById(R.id.textView9);
-					value.setText(eintraege.getString(4));
-										
-					
-				}
-				*/
-			//}
-			TextView status = (TextView) findViewById(R.id.status);
-			status.setText(R.string.msgSuccess);
-
-			//eintraege.close();
-			dbconn.close();
-		//} catch (Exception e) {
-			// TODO: handle exception
-			//TextView status = (TextView) findViewById(R.id.status);			
-			//status.setText(R.string.msgError);
-			
-		//}
-			
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+		db.close();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		return super.onCreateOptionsMenu(menu);
-	}
+	} 
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

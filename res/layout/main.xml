@@ -8,6 +8,8 @@
 			android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 		<TextView android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:text="@string/lblIntro" />
+		<TextView android:text="@string/lblName" android:id="@+id/lblName" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		<EditText android:layout_width="fill_parent" android:id="@+id/txtName" android:layout_height="wrap_content" android:text="@string/txtName"></EditText>
 		<CheckedTextView android:text="@string/lblCategory"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:id="@+id/label_amount"></CheckedTextView>

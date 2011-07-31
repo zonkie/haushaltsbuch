@@ -24,37 +24,34 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int buttonSubmit=0x7f07001b;
+        public static final int buttonSubmit=0x7f070018;
         public static final int checkedTextView1=0x7f070005;
         public static final int checkedTextView2=0x7f070007;
         public static final int checkedTextView3=0x7f070009;
-        public static final int editTextAmount=0x7f07001a;
-        public static final int label_amount=0x7f070015;
-        public static final int label_categoy=0x7f070017;
-        public static final int label_in_out=0x7f070019;
-        public static final int optExit=0x7f07001e;
-        public static final int optInfo=0x7f07001d;
-        public static final int optShowAll=0x7f07001c;
-        public static final int spinnerCategories=0x7f070016;
-        public static final int spinnerDirection=0x7f070018;
+        public static final int editTextAmount=0x7f070017;
+        public static final int label_amount=0x7f070012;
+        public static final int label_categoy=0x7f070014;
+        public static final int label_in_out=0x7f070016;
+        public static final int lblName=0x7f070010;
+        public static final int optExit=0x7f07001b;
+        public static final int optInfo=0x7f07001a;
+        public static final int optShowAll=0x7f070019;
+        public static final int spinnerCategories=0x7f070013;
+        public static final int spinnerDirection=0x7f070015;
         public static final int status=0x7f070000;
         public static final int tableLayout1=0x7f07000a;
         public static final int tableRow1=0x7f07000b;
-        public static final int tableRow2=0x7f07000c;
-        public static final int tableRow3=0x7f070010;
+        public static final int tableRow2=0x7f07000d;
+        public static final int tableRow3=0x7f07000e;
         public static final int textView1=0x7f070004;
         public static final int textView2=0x7f070006;
         public static final int textView3=0x7f070008;
-        public static final int textView4=0x7f07000d;
-        public static final int textView5=0x7f07000e;
-        public static final int textView6=0x7f07000f;
-        public static final int textView7=0x7f070011;
-        public static final int textView8=0x7f070012;
-        public static final int textView9=0x7f070013;
+        public static final int txtName=0x7f070011;
         public static final int txtResultAmount=0x7f070002;
         public static final int txtResultCategory=0x7f070001;
         public static final int txtResultDirection=0x7f070003;
-        public static final int txtStatus=0x7f070014;
+        public static final int txtShowLatestEntry=0x7f07000c;
+        public static final int txtStatus=0x7f07000f;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -67,14 +64,14 @@ public final class R {
         public static final int menu=0x7f060000;
     }
     public static final class string {
-        public static final int app_name=0x7f05001a;
+        public static final int app_name=0x7f05001c;
         /**  Button texts 
          */
-        public static final int btnSubmit=0x7f050005;
+        public static final int btnSubmit=0x7f050007;
         /**  editText texts 
          */
-        public static final int editAmountDefault=0x7f050008;
-        public static final int empty=0x7f050019;
+        public static final int editAmountDefault=0x7f05000a;
+        public static final int empty=0x7f05001b;
         /**  labels 
          */
         public static final int hello=0x7f050000;
@@ -82,31 +79,33 @@ public final class R {
         public static final int lblCategory=0x7f050001;
         public static final int lblInOut=0x7f050003;
         public static final int lblIntro=0x7f050004;
-        public static final int mnuEintragen=0x7f050011;
-        public static final int mnuEintragenShort=0x7f050012;
+        public static final int lblName=0x7f050005;
+        public static final int mnuEintragen=0x7f050013;
+        public static final int mnuEintragenShort=0x7f050014;
         /**  Menu texts texts 
          */
-        public static final int mnuExit=0x7f05000f;
-        public static final int mnuExitShort=0x7f050010;
-        public static final int mnuInfo=0x7f050013;
-        public static final int mnuInfoShort=0x7f050014;
-        public static final int mnuShowAll=0x7f050015;
-        public static final int mnuShowAllShort=0x7f050016;
-        public static final int msgError=0x7f050018;
+        public static final int mnuExit=0x7f050011;
+        public static final int mnuExitShort=0x7f050012;
+        public static final int mnuInfo=0x7f050015;
+        public static final int mnuInfoShort=0x7f050016;
+        public static final int mnuShowAll=0x7f050017;
+        public static final int mnuShowAllShort=0x7f050018;
+        public static final int msgError=0x7f05001a;
         /**  else 
          */
-        public static final int msgSuccess=0x7f050017;
+        public static final int msgSuccess=0x7f050019;
         /**  Radiobutton texts 
          */
-        public static final int radioIn=0x7f050006;
-        public static final int radioOut=0x7f050007;
-        public static final int txtAboutEmailLabel=0x7f05000b;
-        public static final int txtAboutEmailValue=0x7f05000c;
+        public static final int radioIn=0x7f050008;
+        public static final int radioOut=0x7f050009;
+        public static final int txtAboutEmailLabel=0x7f05000d;
+        public static final int txtAboutEmailValue=0x7f05000e;
         /**  About 
          */
-        public static final int txtAboutNameLabel=0x7f050009;
-        public static final int txtAboutNameValue=0x7f05000a;
-        public static final int txtAboutWebLabel=0x7f05000d;
-        public static final int txtAboutWebValue=0x7f05000e;
+        public static final int txtAboutNameLabel=0x7f05000b;
+        public static final int txtAboutNameValue=0x7f05000c;
+        public static final int txtAboutWebLabel=0x7f05000f;
+        public static final int txtAboutWebValue=0x7f050010;
+        public static final int txtName=0x7f050006;
     }
 }
