@@ -1,6 +1,4 @@
 package de.soenkedomroese.haushaltsbuch;
-
-import de.mp.dbtest.db.StaumelderDatenbank;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
