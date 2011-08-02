@@ -22,7 +22,6 @@ public class HaushaltsbuchDatabase extends SQLiteOpenHelper {
 	}
 
 	public void onCreate(SQLiteDatabase db) {
-		// TODO implement something...
 		db.execSQL("CREATE TABLE haushaltsbuch(" +
 				"_id INTEGER PRIMARY KEY AUTOINCREMENT," +
 				"category TEXT NOT NULL," +
@@ -37,4 +36,5 @@ public class HaushaltsbuchDatabase extends SQLiteOpenHelper {
 		
 	}
 
+	//public Cursor
 }

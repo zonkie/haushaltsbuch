@@ -7,6 +7,8 @@
 	<string name="lblInOut">Direction</string>
 	<string name="lblIntro">Enter your expense here by choosing the category,
 		typing in the amount and choosing the Direction.</string>
+	<string name="lblName">What is it?</string>
+	<string name="txtName"></string>
 
 	<!-- Button texts -->
 	<string name="btnSubmit">OK</string>
