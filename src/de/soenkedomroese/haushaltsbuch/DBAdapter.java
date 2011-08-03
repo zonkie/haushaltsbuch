@@ -82,6 +82,19 @@ public class DBAdapter {
 		return db.insert(DATABASE_TABLE, null, initialValues);
 	}
 
+	public long updateExpense(String RowId, String Category, String Date, String Direction,
+			String Itemname, String Value) {
+		return 0;
+		/*ContentValues initialValues = new ContentValues();
+		initialValues.put(KEY_CATEGORY, Category);
+		initialValues.put(KEY_DATE, Date);
+		initialValues.put(KEY_DIRECTION, Direction);
+		initialValues.put(KEY_ITEMNAME, Itemname);
+		initialValues.put(KEY_VALUE, Value);
+		return db.insert(DATABASE_TABLE, null, initialValues);
+	*/
+	}
+	
 	public int getEntryCount() {
 		Cursor cursor = db.rawQuery("SELECT COUNT(_Id) FROM " + DATABASE_TABLE,
 				null);

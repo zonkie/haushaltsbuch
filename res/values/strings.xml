@@ -8,6 +8,7 @@
 	<string name="lblIntro">Enter your expense here by choosing the category,
 		typing in the amount and choosing the Direction.</string>
 	<string name="lblName">What is it?</string>
+	<string name="lblDate">Date</string>
 	<string name="txtName"></string>
 
 	<!-- Button texts -->

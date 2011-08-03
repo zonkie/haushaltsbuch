@@ -41,6 +41,7 @@ public class EintraegeAnzeigen extends ListActivity {
 			DBAdapter = new DBAdapter(this);
 			DBAdapter.open();
 			fillData();
+			DBAdapter.close();
 		} catch (Exception e) {
 			Context context = getApplicationContext();
 			CharSequence text = "I'm sorry, there was en Error reading the latest Entry from the Database! "
@@ -68,6 +69,18 @@ public class EintraegeAnzeigen extends ListActivity {
 		setListAdapter(notes);
 	}
 
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+	    Cursor c = mNotesCursor;
+	    c.moveToPosition(position);
+	    Intent i = new Intent(this, EintragHinzufuegen.class);
+	    i.putExtra(DBAdapter.KEY_ROWID, id);
+	    startActivityForResult(i, ACTIVITY_EDIT);
+	}
+
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);

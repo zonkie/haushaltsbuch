@@ -12,22 +12,46 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 public class EintragHinzufuegen extends Activity {
+	
 	public static final int AUSGEBEN_ID = Menu.FIRST; // Menu Item for first
-														// Activity
 	public static final String CATEGORY = "category";
 	public static final String AMOUNT = "amount";
 	public static final String DIRECTION = "direction";
 	public static final String NAME = "name";
+	public static final String DATE = "date";
+
+	private EditText name;
+	private Spinner category;
+	private Spinner direction;
+	private EditText amount;
+	private EditText date;
+
+	
+	private Long mRowId;
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		name = (EditText) findViewById(R.id.editName);
+		category = (Spinner) findViewById(R.id.spinnerCategories);
+		direction = (Spinner) findViewById(R.id.spinnerDirection);
+		amount = (EditText) findViewById(R.id.editTextAmount);
+		date = (EditText) findViewById(R.id.editDate);
+
+			
+		mRowId = null;
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			mRowId = extras.getLong(DBAdapter.KEY_ROWID);
+			name.setText(extras.getString(NAME));
+			category.setSelection(extras.getInt(CATEGORY), true);
+			direction.setSelection(extras.getInt(DIRECTION), true);
+			amount.setText(extras.getString(AMOUNT));
+			date.setText(extras.getString(DATE));
+		}
 		
-		
-		//if (!empty(rowId)){
-			//fill Fields with Values to edit the Entry.
-		//}
 		
 	}
 
@@ -41,7 +65,7 @@ public class EintragHinzufuegen extends Activity {
 	public void onClickEintragen(final View view) {
 		try {
 			
-			final EditText name = (EditText) findViewById(R.id.txtName);
+			final EditText name = (EditText) findViewById(R.id.editName);
 			
 			final Spinner chooseCategory = (Spinner) findViewById(R.id.spinnerCategories);
 			final int pos = chooseCategory.getSelectedItemPosition();
@@ -61,12 +85,15 @@ public class EintragHinzufuegen extends Activity {
 
 			final Intent intent = new Intent(this, resultActivity.class);
 
+			intent.putExtra(DBAdapter.KEY_ROWID, String.valueOf(mRowId));	
+			intent.putExtra(NAME, String.valueOf(name.getText()));
 			intent.putExtra(CATEGORY, String.valueOf(categoryInt));
 			intent.putExtra(AMOUNT, String.valueOf(amount.getText()));
-			intent.putExtra(DIRECTION, String.valueOf(directionInt));
-			intent.putExtra(NAME, String.valueOf(name.getText()));
+			intent.putExtra(NAME, String.valueOf(directionInt));
+			intent.putExtra(DATE, String.valueOf(date.getText()));
 
 			startActivity(intent);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 
@@ -95,10 +122,13 @@ public class EintragHinzufuegen extends Activity {
 			final EditText amount = (EditText) findViewById(R.id.editTextAmount);
 
 			final Intent intentSubmit = new Intent(this, resultActivity.class);
-
+			
+			intentSubmit.putExtra(DBAdapter.KEY_ROWID, String.valueOf(mRowId));	
+			intentSubmit.putExtra(NAME, String.valueOf(name.getText()));
 			intentSubmit.putExtra(CATEGORY, String.valueOf(categoryInt));
 			intentSubmit.putExtra(AMOUNT, String.valueOf(amount.getText()));
-			intentSubmit.putExtra(DIRECTION, String.valueOf(directionInt));
+			intentSubmit.putExtra(NAME, String.valueOf(directionInt));
+			intentSubmit.putExtra(DATE, String.valueOf(date.getText()));
 
 			startActivity(intentSubmit);
 

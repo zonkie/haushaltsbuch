@@ -8,8 +8,8 @@
 			android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 		<TextView android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:text="@string/lblIntro" />
-		<TextView android:text="@string/lblName" android:id="@+id/lblName" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-		<EditText android:layout_width="fill_parent" android:id="@+id/txtName" android:layout_height="wrap_content" android:text="@string/txtName"></EditText>
+		<CheckedTextView android:text="@string/lblName" android:id="@+id/checkedTextView2" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckedTextView>
+		<EditText android:layout_width="fill_parent" android:id="@+id/editName" android:layout_height="wrap_content"></EditText>
 		<CheckedTextView android:text="@string/lblCategory"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:id="@+id/label_amount"></CheckedTextView>
@@ -24,6 +24,8 @@
 		<EditText android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:text="@string/editAmountDefault"
 			android:id="@+id/editTextAmount" android:inputType="number|numberSigned|numberDecimal"></EditText>
+		<CheckedTextView android:text="@string/lblDate" android:id="@+id/checkedTextView1" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckedTextView>
+		<EditText android:text="" android:layout_height="wrap_content" android:id="@+id/editDate" android:layout_width="fill_parent"></EditText>
 		<Button android:text="@string/btnSubmit" android:id="@+id/buttonSubmit"
 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="onClickEintragen"></Button>
 	</LinearLayout>

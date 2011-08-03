@@ -37,16 +37,30 @@ public class resultActivity extends Activity {
 			// do something when the button is clicked
 			try
 			{
-				db.insertExpense(
-						extras.getString(EintragHinzufuegen.CATEGORY),
-						"",
-						extras.getString(EintragHinzufuegen.DIRECTION),
-						extras.getString(EintragHinzufuegen.NAME),
-						extras.getString(EintragHinzufuegen.AMOUNT)
-					);
-		
+				if (extras.getString(DBAdapter.KEY_ROWID)!= "ö"){
+					db.updateExpense(
+							extras.getString(DBAdapter.KEY_ROWID),
+							extras.getString(EintragHinzufuegen.CATEGORY),
+							"",
+							extras.getString(EintragHinzufuegen.DIRECTION),
+							extras.getString(EintragHinzufuegen.NAME),
+							extras.getString(EintragHinzufuegen.AMOUNT)
+						);
+			
+				} else {
+					db.insertExpense(
+							extras.getString(EintragHinzufuegen.CATEGORY),
+							"",
+							extras.getString(EintragHinzufuegen.DIRECTION),
+							extras.getString(EintragHinzufuegen.NAME),
+							extras.getString(EintragHinzufuegen.AMOUNT)
+						);
+			
+			
+				}
+				
 				Context context = getApplicationContext();
-				CharSequence text = "The expense was added successfully!";
+				CharSequence text = "The expense was added successfully!";		
 				int duration = Toast.LENGTH_SHORT;
 		
 				Toast toast = Toast.makeText(context, text, duration);
