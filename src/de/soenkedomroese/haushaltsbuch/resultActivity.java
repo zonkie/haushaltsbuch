@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import de.soenkedomroese.haushaltsbuch.DBAdapter;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,68 +22,66 @@ import android.widget.Toast;
 
 public class resultActivity extends Activity {
 	DBAdapter db = new DBAdapter(this);
+
 	@Override
-	public void onCreate(Bundle icicle){
-		
+	public void onCreate(Bundle icicle) {
+
 		super.onCreate(icicle);
 		setContentView(R.layout.result);
-		
+
 		final Bundle extras = getIntent().getExtras();
-		
-		if (extras != null){
-			
+
+		if (extras != null) {
+
 			db.open();
 			// do something when the button is clicked
-			try
-			{
-				if (extras.getString(DBAdapter.KEY_ROWID)!= "ö"){
-					db.updateExpense(
-							extras.getString(DBAdapter.KEY_ROWID),
-							extras.getString(EintragHinzufuegen.CATEGORY),
-							"",
+			try {
+				Context context = getApplicationContext();
+				CharSequence text = "";
+
+				if (extras.getString(DBAdapter.KEY_ROWID) != "new") {
+					db.updateExpense(extras.getString(DBAdapter.KEY_ROWID),
+							extras.getString(EintragHinzufuegen.CATEGORY), "",
 							extras.getString(EintragHinzufuegen.DIRECTION),
 							extras.getString(EintragHinzufuegen.NAME),
-							extras.getString(EintragHinzufuegen.AMOUNT)
-						);
-			
+							extras.getString(EintragHinzufuegen.AMOUNT));
+					text = "The expense was updated successfully!";
 				} else {
 					db.insertExpense(
-							extras.getString(EintragHinzufuegen.CATEGORY),
-							"",
+							extras.getString(EintragHinzufuegen.CATEGORY), "",
 							extras.getString(EintragHinzufuegen.DIRECTION),
 							extras.getString(EintragHinzufuegen.NAME),
-							extras.getString(EintragHinzufuegen.AMOUNT)
-						);
-			
-			
+							extras.getString(EintragHinzufuegen.AMOUNT));
+					text = "The expense was added successfully!";
+
 				}
-				
-				Context context = getApplicationContext();
-				CharSequence text = "The expense was added successfully!";		
+
 				int duration = Toast.LENGTH_SHORT;
-		
+
 				Toast toast = Toast.makeText(context, text, duration);
 				toast.show();
-			
+
 			} catch (Exception e) {
 				Context context = getApplicationContext();
 				CharSequence text = "I'm sorry, there was en Error writing the Entry into the Database!";
 				int duration = Toast.LENGTH_LONG;
-		
+
 				Toast toast = Toast.makeText(context, text, duration);
 				toast.show();
-			
+
 			}
 			db.close();
 
 			final TextView resultCategory = (TextView) findViewById(R.id.txtResultCategory);
-			resultCategory.setText(extras.getString(EintragHinzufuegen.CATEGORY)); // String.valueOf(extras.get(EintragHinzufuegen.CATEGORY).toString()));
+			resultCategory.setText(extras
+					.getString(EintragHinzufuegen.CATEGORY)); // String.valueOf(extras.get(EintragHinzufuegen.CATEGORY).toString()));
 
 			final TextView resultAmount = (TextView) findViewById(R.id.txtResultAmount);
 			resultAmount.setText(extras.getString(EintragHinzufuegen.AMOUNT));
 
 			final TextView resultDirection = (TextView) findViewById(R.id.txtResultDirection);
-			resultDirection.setText(extras.getString(EintragHinzufuegen.DIRECTION));
+			resultDirection.setText(extras
+					.getString(EintragHinzufuegen.DIRECTION));
 
 			final TextView status = (TextView) findViewById(R.id.textView1);
 			status.setText(R.string.msgSuccess);
@@ -109,7 +106,8 @@ public class resultActivity extends Activity {
 			finish();
 			return true;
 		case R.id.optShowAll:
-			final Intent intentShowAll = new Intent(this, EintraegeAnzeigen.class);
+			final Intent intentShowAll = new Intent(this,
+					EintraegeAnzeigen.class);
 			startActivity(intentShowAll);
 			return true;
 		case R.id.optInfo:

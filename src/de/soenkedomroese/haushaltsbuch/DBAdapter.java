@@ -21,7 +21,7 @@ public class DBAdapter {
 
 	private static final String DATABASE_NAME = "haushaltsbuch";
 	private static final String DATABASE_TABLE = "haushaltsbuch";
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 
 	private static final String DATABASE_CREATE = "CREATE TABLE "
 			+ DATABASE_TABLE + "(" + KEY_ROWID
@@ -131,7 +131,7 @@ public class DBAdapter {
 
 	public Cursor getList() {
 		return db.rawQuery("SELECT " + KEY_ROWID + ", " + KEY_ITEMNAME
-				+ "|| '|' || " + KEY_DIRECTION + " AS " + KEY_ITEMNAME
+				+ "|| '|' || " + KEY_DIRECTION + "|| '|' || "+ KEY_VALUE + " AS " + KEY_ITEMNAME
 				+ " FROM "
 				+ DATABASE_TABLE, null);
 	}
@@ -139,7 +139,7 @@ public class DBAdapter {
 	public Cursor fetchOne(long rowId) throws SQLException {
 
 		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {
-				KEY_ROWID, KEY_ITEMNAME }, KEY_ROWID + "=" + rowId, null, null,
+				KEY_ROWID, KEY_CATEGORY, KEY_DATE, KEY_DIRECTION, KEY_ITEMNAME, KEY_VALUE }, KEY_ROWID + "=" + rowId, null, null,
 				null, null, null);
 		if (mCursor != null) {
 			mCursor.moveToFirst();

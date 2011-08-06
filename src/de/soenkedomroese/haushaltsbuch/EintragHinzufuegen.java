@@ -2,7 +2,9 @@ package de.soenkedomroese.haushaltsbuch;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,9 +27,11 @@ public class EintragHinzufuegen extends Activity {
 	private Spinner direction;
 	private EditText amount;
 	private EditText date;
-
-	
 	private Long mRowId;
+	
+	private Cursor mCursor;
+	
+
 	
 	
 	@Override
@@ -45,11 +49,20 @@ public class EintragHinzufuegen extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			mRowId = extras.getLong(DBAdapter.KEY_ROWID);
-			name.setText(extras.getString(NAME));
+			Log.w("woot?", "RowID" + String.valueOf(mRowId));
+			DBAdapter db = new DBAdapter(this);
+			db.open();
+			mCursor = db.fetchOne(mRowId);
+			startManagingCursor(mCursor);
+			
+			name.setText(mCursor.getString(4));
 			category.setSelection(extras.getInt(CATEGORY), true);
 			direction.setSelection(extras.getInt(DIRECTION), true);
-			amount.setText(extras.getString(AMOUNT));
-			date.setText(extras.getString(DATE));
+			amount.setText(mCursor.getString(5));
+			date.setText(mCursor.getString(2));
+			stopManagingCursor(mCursor);
+			mCursor.close();
+			db.close();
 		}
 		
 		
@@ -84,8 +97,11 @@ public class EintragHinzufuegen extends Activity {
 			final int directionInt = directions[dpos];
 
 			final Intent intent = new Intent(this, resultActivity.class);
-
-			intent.putExtra(DBAdapter.KEY_ROWID, String.valueOf(mRowId));	
+			if (mRowId != null) {
+				intent.putExtra(DBAdapter.KEY_ROWID, String.valueOf(mRowId));
+			} else {
+				intent.putExtra(DBAdapter.KEY_ROWID, "new");
+			}
 			intent.putExtra(NAME, String.valueOf(name.getText()));
 			intent.putExtra(CATEGORY, String.valueOf(categoryInt));
 			intent.putExtra(AMOUNT, String.valueOf(amount.getText()));
