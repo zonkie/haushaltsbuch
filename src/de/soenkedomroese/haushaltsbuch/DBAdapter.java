@@ -21,14 +21,17 @@ public class DBAdapter {
 
 	private static final String DATABASE_NAME = "haushaltsbuch";
 	private static final String DATABASE_TABLE = "haushaltsbuch";
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 13;
 
 	private static final String DATABASE_CREATE = "CREATE TABLE "
-			+ DATABASE_TABLE + "(" + KEY_ROWID
-			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_CATEGORY
-			+ " TEXT NOT NULL," + KEY_DIRECTION + " TEXT NOT NULL,"
-			+ KEY_ITEMNAME + " TEXT NOT NULL," + KEY_VALUE + " TEXT NOT NULL,"
-			+ KEY_DATE + " TEXT NOT NULL" + ")";
+			+ DATABASE_TABLE + "(" 
+			+ KEY_ROWID	+ " INTEGER PRIMARY KEY ASC,"
+			+ KEY_CATEGORY + " TEXT NOT NULL,"
+			+ KEY_DATE + " TEXT NOT NULL,"
+			+ KEY_DIRECTION + " TEXT NOT NULL,"
+			+ KEY_ITEMNAME + " TEXT NOT NULL,"
+			+ KEY_VALUE + " TEXT NOT NULL"
+			+ ")";
 
 	private final Context context;
 
@@ -71,32 +74,45 @@ public class DBAdapter {
 	}
 
 	// ---insert an Entry into the database---
-	public long insertExpense(String Category, String Date, String Direction,
-			String Itemname, String Value) {
-		ContentValues initialValues = new ContentValues();
-		initialValues.put(KEY_CATEGORY, Category);
-		initialValues.put(KEY_DATE, Date);
-		initialValues.put(KEY_DIRECTION, Direction);
-		initialValues.put(KEY_ITEMNAME, Itemname);
-		initialValues.put(KEY_VALUE, Value);
-		return db.insert(DATABASE_TABLE, null, initialValues);
+	public long insertExpense(String Category, String Date, String Direction, String Itemname, String Value) {
+		long retval;
+		try{
+			Log.d("Soenke","insertExpense");
+			ContentValues initialValues = new ContentValues();
+			initialValues.put(KEY_CATEGORY, ""+Category+"");
+			initialValues.put(KEY_DATE, ""+Date+"");
+			initialValues.put(KEY_DIRECTION, ""+ Direction+"");
+			initialValues.put(KEY_ITEMNAME, ""+Itemname+"");
+			initialValues.put(KEY_VALUE, ""+Value+"");
+			Log.d("Soenke", "Insert: " + Category + " - " + Date + " - " + Direction + " - " + Itemname + " - " + Value);
+			retval = db.insert(DATABASE_TABLE, null, initialValues);
+		} catch (Exception e) {
+			retval = 0;
+		}
+		return retval;
 	}
 
 	public long updateExpense(String RowId, String Category, String Date, String Direction,
 			String Itemname, String Value) {
-		return 0;
-		/*ContentValues initialValues = new ContentValues();
-		initialValues.put(KEY_CATEGORY, Category);
-		initialValues.put(KEY_DATE, Date);
-		initialValues.put(KEY_DIRECTION, Direction);
-		initialValues.put(KEY_ITEMNAME, Itemname);
-		initialValues.put(KEY_VALUE, Value);
-		return db.insert(DATABASE_TABLE, null, initialValues);
-	*/
+		long retval;
+		try{
+			Log.d("Soenke","updateExpense");
+			ContentValues updateValues = new ContentValues();
+			updateValues.put(KEY_CATEGORY, ""+Category+"");
+			updateValues.put(KEY_DATE, ""+Date+"");
+			updateValues.put(KEY_DIRECTION, ""+Direction+"");
+			updateValues.put(KEY_ITEMNAME, ""+Itemname+"");
+			updateValues.put(KEY_VALUE, ""+Value+"");
+			Log.d("Soenke", "Update: " + Category + " - " + Date + " - " + Direction + " - " + Itemname + " - " + Value);
+			retval = db.update(DATABASE_TABLE, updateValues, KEY_ROWID+"="+ Integer.parseInt(RowId), null);
+		} catch (Exception e) {
+			retval = 0;
+		}
+		return retval;
 	}
 	
 	public int getEntryCount() {
-		Cursor cursor = db.rawQuery("SELECT COUNT(_Id) FROM " + DATABASE_TABLE,
+		Cursor cursor = db.rawQuery("SELECT COUNT("+ KEY_ROWID +") FROM " + DATABASE_TABLE,
 				null);
 		if (cursor.moveToFirst()) {
 			return cursor.getInt(0);
@@ -130,8 +146,10 @@ public class DBAdapter {
 	}
 
 	public Cursor getList() {
-		return db.rawQuery("SELECT " + KEY_ROWID + ", " + KEY_ITEMNAME
-				+ "|| '|' || " + KEY_DIRECTION + "|| '|' || "+ KEY_VALUE + " AS " + KEY_ITEMNAME
+		return db.rawQuery("" +
+				"SELECT " + KEY_ROWID + ","
+				+ KEY_ITEMNAME + "|| '|' || " + KEY_DIRECTION + "|| '|' || "+ KEY_VALUE
+				+ " AS " + KEY_ITEMNAME
 				+ " FROM "
 				+ DATABASE_TABLE, null);
 	}
@@ -147,15 +165,4 @@ public class DBAdapter {
 		return mCursor;
 	}
 
-	public boolean updateExpense(long rowId, String Category, String Date, String Direction,
-			String Itemname, String Value) {
-		ContentValues args = new ContentValues();
-		args.put(KEY_CATEGORY, Category);
-		args.put(KEY_DATE, Date);
-		args.put(KEY_DIRECTION, Direction);
-		args.put(KEY_ITEMNAME, Itemname);
-		args.put(KEY_VALUE, Value);
-
-		return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
-	}
 }

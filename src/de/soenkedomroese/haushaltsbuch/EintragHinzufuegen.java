@@ -22,6 +22,8 @@ public class EintragHinzufuegen extends Activity {
 	public static final String NAME = "name";
 	public static final String DATE = "date";
 
+	public static final String NEWID = "newid";
+	
 	private EditText name;
 	private Spinner category;
 	private Spinner direction;
@@ -49,7 +51,7 @@ public class EintragHinzufuegen extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			mRowId = extras.getLong(DBAdapter.KEY_ROWID);
-			Log.w("woot?", "RowID" + String.valueOf(mRowId));
+			Log.d("Debug", "RowID" + String.valueOf(mRowId));
 			DBAdapter db = new DBAdapter(this);
 			db.open();
 			mCursor = db.fetchOne(mRowId);
@@ -64,7 +66,7 @@ public class EintragHinzufuegen extends Activity {
 			mCursor.close();
 			db.close();
 		}
-		
+		Log.d("Soenke","mRowId: " + mRowId);
 		
 	}
 
@@ -98,10 +100,13 @@ public class EintragHinzufuegen extends Activity {
 
 			final Intent intent = new Intent(this, resultActivity.class);
 			if (mRowId != null) {
+				Log.d("Soenke","mRowId != null : " + mRowId);
 				intent.putExtra(DBAdapter.KEY_ROWID, String.valueOf(mRowId));
 			} else {
-				intent.putExtra(DBAdapter.KEY_ROWID, "new");
+				Log.d("Soenke","mRowId == null : " + mRowId);
+				intent.putExtra(DBAdapter.KEY_ROWID, NEWID);
 			}
+			
 			intent.putExtra(NAME, String.valueOf(name.getText()));
 			intent.putExtra(CATEGORY, String.valueOf(categoryInt));
 			intent.putExtra(AMOUNT, String.valueOf(amount.getText()));
@@ -139,7 +144,14 @@ public class EintragHinzufuegen extends Activity {
 
 			final Intent intentSubmit = new Intent(this, resultActivity.class);
 			
-			intentSubmit.putExtra(DBAdapter.KEY_ROWID, String.valueOf(mRowId));	
+			if (mRowId != null) {
+				Log.d("Soenke","mRowId != null : " + mRowId);
+				intentSubmit.putExtra(DBAdapter.KEY_ROWID, String.valueOf(mRowId));
+			} else {
+				Log.d("Soenke","mRowId == null : " + mRowId);
+				intentSubmit.putExtra(DBAdapter.KEY_ROWID, NEWID);
+			}
+			
 			intentSubmit.putExtra(NAME, String.valueOf(name.getText()));
 			intentSubmit.putExtra(CATEGORY, String.valueOf(categoryInt));
 			intentSubmit.putExtra(AMOUNT, String.valueOf(amount.getText()));
