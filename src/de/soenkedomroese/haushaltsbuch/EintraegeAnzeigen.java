@@ -79,7 +79,6 @@ public class EintraegeAnzeigen extends ListActivity {
 	    i.putExtra(DBAdapter.KEY_ROWID, id);
 	    startActivityForResult(i, ACTIVITY_EDIT);
 	}
-
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -4,18 +4,21 @@ import java.sql.Date;
 
 import de.soenkedomroese.haushaltsbuch.DBAdapter;
 
+import android.R.drawable;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TimeUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,7 +51,6 @@ public class resultActivity extends Activity {
 							extras.getString(EintragHinzufuegen.NAME),
 							extras.getString(EintragHinzufuegen.AMOUNT));
 					bubbleText = "The expense was added successfully!";
-
 				} else {
 					Log.d("Soenke","ID != " + EintragHinzufuegen.NEWID + ", but : " + rowid );
 					db.updateExpense(extras.getString(DBAdapter.KEY_ROWID),
@@ -68,7 +70,7 @@ public class resultActivity extends Activity {
 			} catch (Exception e) {
 				db.close();
 				Context context = getApplicationContext();
-				CharSequence text = "I'm sorry, there was en Error writing the Entry into the Database!";
+				CharSequence text = "I'm sorry, there was en Error writing the Entry into the Database! "+ e.getMessage();
 				int duration = Toast.LENGTH_LONG;
 
 				Toast toast = Toast.makeText(context, text, duration);
@@ -77,17 +79,29 @@ public class resultActivity extends Activity {
 			}
 			db.close();
 
+			final TextView resultName = (TextView) findViewById(R.id.txtResultName);
+			resultName.setText(extras.getString(EintragHinzufuegen.NAME));
+			
 			final TextView resultCategory = (TextView) findViewById(R.id.txtResultCategory);
-			resultCategory.setText(extras
-					.getString(EintragHinzufuegen.CATEGORY)); // String.valueOf(extras.get(EintragHinzufuegen.CATEGORY).toString()));
+			resultCategory.setText(extras.getString(EintragHinzufuegen.CATEGORY)); // String.valueOf(extras.get(EintragHinzufuegen.CATEGORY).toString()));
 
 			final TextView resultAmount = (TextView) findViewById(R.id.txtResultAmount);
 			resultAmount.setText(extras.getString(EintragHinzufuegen.AMOUNT));
 
+			final ImageView directionImg = (ImageView) findViewById(R.id.imgResultDirection);
 			final TextView resultDirection = (TextView) findViewById(R.id.txtResultDirection);
-			resultDirection.setText(extras
-					.getString(EintragHinzufuegen.DIRECTION));
-
+			
+			if (extras.getString(EintragHinzufuegen.DIRECTION).equalsIgnoreCase("1")) {
+				directionImg.setImageResource(R.drawable.direction_in);
+				resultDirection.setText(R.string.radioIn);
+			} else {
+				directionImg.setImageResource(R.drawable.direction_out);
+				resultDirection.setText(R.string.radioOut);
+			}
+			final TextView date = (TextView) findViewById(R.id.txtResultDate);
+			date.setText(extras.getString(EintragHinzufuegen.DATE));
+			
+			
 			final TextView status = (TextView) findViewById(R.id.textView1);
 			status.setText(R.string.msgSuccess);
 

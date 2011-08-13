@@ -21,7 +21,7 @@ public class DBAdapter {
 
 	private static final String DATABASE_NAME = "haushaltsbuch";
 	private static final String DATABASE_TABLE = "haushaltsbuch";
-	private static final int DATABASE_VERSION = 13;
+	private static final int DATABASE_VERSION = 14;
 
 	private static final String DATABASE_CREATE = "CREATE TABLE "
 			+ DATABASE_TABLE + "(" 
@@ -111,6 +111,20 @@ public class DBAdapter {
 		return retval;
 	}
 	
+	public long deleteExpense(String RowId) {
+		long retval;
+		try{
+			Log.d("Soenke","updateExpense");
+			Log.d("Soenke", "Delete: " + Integer.parseInt(RowId));
+			retval = db.delete(DATABASE_TABLE, KEY_ROWID+"="+ Integer.parseInt(RowId), null);
+		} catch (Exception e) {
+			retval = 0;
+		}
+		return retval;
+	}
+	
+	
+	
 	public int getEntryCount() {
 		Cursor cursor = db.rawQuery("SELECT COUNT("+ KEY_ROWID +") FROM " + DATABASE_TABLE,
 				null);
@@ -148,7 +162,10 @@ public class DBAdapter {
 	public Cursor getList() {
 		return db.rawQuery("" +
 				"SELECT " + KEY_ROWID + ","
-				+ KEY_ITEMNAME + "|| '|' || " + KEY_DIRECTION + "|| '|' || "+ KEY_VALUE
+				+ KEY_DIRECTION + "||"
+				+ KEY_ITEMNAME
+				+ "||', ' || "+ KEY_VALUE
+				+ "|| '€ '"
 				+ " AS " + KEY_ITEMNAME
 				+ " FROM "
 				+ DATABASE_TABLE, null);

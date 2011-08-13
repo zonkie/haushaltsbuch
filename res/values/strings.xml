@@ -13,6 +13,7 @@
 
 	<!-- Button texts -->
 	<string name="btnSubmit">OK</string>
+	<string name="btnDelete">Delete</string>
 
 	<!-- Radiobutton texts -->
 	<string name="radioIn">Incoming</string>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:orientation="vertical" android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:orientation="vertical">
 		<TextView android:text="@string/empty" android:id="@+id/status"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 		<TextView android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:text="@string/lblIntro" />
 		<CheckedTextView android:text="@string/lblName" android:id="@+id/checkedTextView2" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckedTextView>
-		<EditText android:layout_width="fill_parent" android:id="@+id/editName" android:layout_height="wrap_content"></EditText>
+		<EditText android:id="@+id/editName" android:layout_height="fill_parent" android:layout_width="fill_parent"></EditText>
 		<CheckedTextView android:text="@string/lblCategory"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:id="@+id/label_amount"></CheckedTextView>
@@ -28,5 +28,6 @@
 		<EditText android:text="" android:layout_height="wrap_content" android:id="@+id/editDate" android:layout_width="fill_parent"></EditText>
 		<Button android:text="@string/btnSubmit" android:id="@+id/buttonSubmit"
 			android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="onClickEintragen"></Button>
+		<Button android:layout_width="wrap_content" android:id="@+id/buttonDelete" android:layout_height="wrap_content" android:clickable="false" android:onClick="onClickLoeschen" android:text="@string/btnDelete"></Button>
 	</LinearLayout>
 </ScrollView>

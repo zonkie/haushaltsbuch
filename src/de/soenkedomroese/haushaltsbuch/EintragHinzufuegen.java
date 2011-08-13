@@ -1,6 +1,7 @@
 package de.soenkedomroese.haushaltsbuch;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class EintragHinzufuegen extends Activity {
 	
@@ -33,7 +35,7 @@ public class EintragHinzufuegen extends Activity {
 	
 	private Cursor mCursor;
 	
-
+	DBAdapter db = new DBAdapter(this);
 	
 	
 	@Override
@@ -49,10 +51,12 @@ public class EintragHinzufuegen extends Activity {
 			
 		mRowId = null;
 		Bundle extras = getIntent().getExtras();
+		Button deleteButton = (Button) findViewById(R.id.buttonDelete);
 		if (extras != null) {
+			deleteButton.setClickable(true);
 			mRowId = extras.getLong(DBAdapter.KEY_ROWID);
 			Log.d("Debug", "RowID" + String.valueOf(mRowId));
-			DBAdapter db = new DBAdapter(this);
+
 			db.open();
 			mCursor = db.fetchOne(mRowId);
 			startManagingCursor(mCursor);
@@ -65,6 +69,8 @@ public class EintragHinzufuegen extends Activity {
 			stopManagingCursor(mCursor);
 			mCursor.close();
 			db.close();
+		} else {
+			deleteButton.setClickable(false);
 		}
 		Log.d("Soenke","mRowId: " + mRowId);
 		
@@ -84,8 +90,7 @@ public class EintragHinzufuegen extends Activity {
 			
 			final Spinner chooseCategory = (Spinner) findViewById(R.id.spinnerCategories);
 			final int pos = chooseCategory.getSelectedItemPosition();
-			final int[] categories = getResources().getIntArray(
-					R.array.categories_values);
+			final int[] categories = getResources().getIntArray(R.array.categories_values);
 			final int categoryInt = categories[pos];
 
 			// Amount from editText
@@ -94,8 +99,7 @@ public class EintragHinzufuegen extends Activity {
 			// direction from RadioGroup
 			final Spinner direction = (Spinner) findViewById(R.id.spinnerDirection);
 			final int dpos = direction.getSelectedItemPosition();
-			final int[] directions = getResources().getIntArray(
-					R.array.directionValues);
+			final int[] directions = getResources().getIntArray(R.array.directionValues);
 			final int directionInt = directions[dpos];
 
 			final Intent intent = new Intent(this, resultActivity.class);
@@ -110,16 +114,54 @@ public class EintragHinzufuegen extends Activity {
 			intent.putExtra(NAME, String.valueOf(name.getText()));
 			intent.putExtra(CATEGORY, String.valueOf(categoryInt));
 			intent.putExtra(AMOUNT, String.valueOf(amount.getText()));
-			intent.putExtra(NAME, String.valueOf(directionInt));
+			intent.putExtra(DIRECTION, String.valueOf(directionInt));
 			intent.putExtra(DATE, String.valueOf(date.getText()));
 
 			startActivity(intent);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
-
+				//TODO: Do something...
 		}
 	}
+	public void onClickLoeschen(final View view) {
+		try {
+
+			final Intent intent = new Intent(this, EintraegeAnzeigen.class);
+			if (mRowId != null) {
+				Log.d("Soenke","mRowId != null : " + mRowId);
+				Context context = getApplicationContext();
+				db.open();
+				db.deleteExpense(String.valueOf(mRowId));
+				db.close();
+				CharSequence bubbleText = "Entry " + mRowId +" has been deleted";
+				int duration = Toast.LENGTH_SHORT;
+				Toast toast = Toast.makeText(context, bubbleText, duration);
+				toast.show();
+				startActivity(intent);
+			} else {
+				Log.d("Soenke","Keine RowID übergeben, konnte Zeile nciht Löschen");
+				// Bubble anzeigen...			
+				Context context = getApplicationContext();
+				Log.d("Soenke","Error while Deleting");
+				CharSequence bubbleText = "No ID given, entry could not be deleted.";
+				int duration = Toast.LENGTH_SHORT;
+				Toast toast = Toast.makeText(context, bubbleText, duration);
+				toast.show();
+			}
+
+			
+		} catch (Exception e) {
+			Context context = getApplicationContext();
+			Log.d("Soenke","Error while Deleting");
+			CharSequence bubbleText = "";
+			bubbleText = e.getMessage();
+			int duration = Toast.LENGTH_SHORT;
+			Toast toast = Toast.makeText(context, bubbleText, duration);
+			toast.show();
+		}
+	}
+	
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
